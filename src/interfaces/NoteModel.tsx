@@ -6,6 +6,7 @@ export interface NoteModel {
     latexPost: string,
     latexPre: string,
     latexsvg: boolean,
+    name: string,
     req: Array<any>,
     sortf: number,
     tags: Array<string>,

@@ -9,11 +9,15 @@ export const Note: React.FC<Props> = ({note}) => {
     return (
         <div className="row">
             <div className="col">
-                Fields go here. Should also include a button allowing you to preview generated cards.
-                {note.fields.map((field) => (
-                    <div className="field">
-                    </div>
+                {// edit fields in the left column
+                note.fields.map((field) => (
+                    <div contentEditable={true}>{field}</div>
                 ))}
+            </div>
+            <div className="col">
+                {// preview rendered cards in the right column
+
+                }
             </div>
         </div>
     )
