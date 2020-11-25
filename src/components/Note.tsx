@@ -2,12 +2,16 @@ import React from 'react'
 import ContentEditable from 'react-contenteditable';
 import { NoteInterface } from '../interfaces/NoteInterface';
 import { NoteModel } from './../interfaces/NoteModel';
+import { CardCarousel } from './CardCarousel';
+import { range } from './../utils/utils';
 
 interface Props {
     key: string;
     note: NoteInterface;
     model: NoteModel;
 }
+
+// TODO: consider creating a function to preprocess the HTML so that the image sources are redirected to public/deck/media
 
 export const Note: React.FC<Props> = ({note, model}) => {
     return (
@@ -30,33 +34,8 @@ export const Note: React.FC<Props> = ({note, model}) => {
                 </div>
             </div>
             <div className="col note-view">
-                {// preview rendered cards in the right column
-
-                }
-                (space for view of rendered cards: under construction)
+                <CardCarousel key={note.guid} note={note} templates={model.tmpls}/>
             </div>
         </div>
     )
-}
-
-function range(start: number, stop?: number, step?: number): Array<number> {
-    if (typeof stop == "undefined") {
-        stop = start;
-        start = 0;
-    }
-
-    if (typeof step == "undefined") {
-        step = 1;
-    }
-
-    if ((step > 0 && start >= stop) || (step < 0 && start <= stop)) {
-        return [];
-    }
-
-    let result = Array<number>();
-    for (var i = start; step > 0 ? i < stop : i > stop; i += step) {
-        result.push(i);
-    }
-
-    return result;
 }

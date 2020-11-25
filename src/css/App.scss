@@ -80,3 +80,27 @@
     }
   }
 }
+
+.carousel {
+  .control-arrow {
+    color: black !important;
+  }
+
+  // i honestly tried to do this the smart way but it wouldn't work
+  .control-next.control-arrow:before {
+    border-left: 8px solid #000;
+  }
+
+  .control-prev.control-arrow:before {
+    border-right: 8px solid #000;
+  }
+
+  .dot {
+    background: black !important;
+  }
+
+  .slide {
+    background: none;
+    padding: 10px;
+  }
+}

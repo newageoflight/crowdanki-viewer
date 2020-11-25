@@ -10,20 +10,6 @@ export const NoteList = () => {
     const noteModels = useRecoilValue(noteModelsState);
     const uniqModels = uniq(noteModels);
 
-    // useEffect(() => {
-    //     if (uniqModels.length > 0) {
-    //         console.log(noteModels);
-    //         console.log(uniqModels);
-    //     }
-    // }, [noteModels, uniqModels])
-    // const getRelevantModelFields: () => NoteModel | void = function () {
-    //     console.log("Model getter called")
-    //     if (uniqModels.length > 0) {
-    //         let model = uniqModels.find((e) => e.crowdanki_uuid === note.note_model_uuid);
-    //         return model.flds
-    //     }
-    // }
-
     return (
         <div className="note-container">
            {notes.map((note) => (

@@ -104,4 +104,25 @@
 .note-container .col .field-content:active, .note-container .col .tag-content:active {
   border: 1px solid #999;
 }
+
+.carousel .control-arrow {
+  color: black !important;
+}
+
+.carousel .control-next.control-arrow:before {
+  border-left: 8px solid #000;
+}
+
+.carousel .control-prev.control-arrow:before {
+  border-right: 8px solid #000;
+}
+
+.carousel .dot {
+  background: black !important;
+}
+
+.carousel .slide {
+  background: none;
+  padding: 10px;
+}
 /*# sourceMappingURL=App.css.map */
