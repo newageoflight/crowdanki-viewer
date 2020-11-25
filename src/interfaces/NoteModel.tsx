@@ -1,8 +1,11 @@
+import { NoteField } from "./NoteField";
+import { CardTemplateInterface } from './CardTemplate';
+
 export interface NoteModel {
     __type__: string,
     crowdanki_uuid: string,
     css: string,
-    flds: Array<any>,
+    flds: Array<NoteField>,
     latexPost: string,
     latexPre: string,
     latexsvg: boolean,
@@ -10,7 +13,7 @@ export interface NoteModel {
     req: Array<any>,
     sortf: number,
     tags: Array<string>,
-    tmpls: Array<any>,
+    tmpls: Array<CardTemplateInterface>,
     type: number,
     vers: Array<any>
 }

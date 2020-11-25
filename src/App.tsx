@@ -5,6 +5,8 @@ import { Deck } from './components/Deck';
 import { decksState } from './context/DeckState';
 import { NoteList } from './components/NoteList';
 
+import './css/App.css';
+
 // to prevent VSCode from glitching out about the TSConfig:
 // https://stackoverflow.com/a/64969461/5403467
 
@@ -20,16 +22,20 @@ function App() {
     }
     
     getData();
-  }, []);
+  }, [setDecks]);
 
-  console.log("Decks:")
-  console.log(decks);
   return (
-    <div className="App">
-      <h1>CrowdAnki JSON viewer</h1>
-      <Deck item={decks} level={0}/>
-      <NoteList/>
-    </div>
+    <>
+      <header>
+        <h1>CrowdAnki JSON viewer</h1>
+      </header>
+      <div className="container">
+        <div className="deck-list">
+          <Deck key={decks.crowdanki_uuid} item={decks} level={0}/>
+        </div>
+        <NoteList/>
+      </div>
+    </>
   );
 }
 

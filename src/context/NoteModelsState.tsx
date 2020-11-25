@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { NoteModel } from './../interfaces/NoteModel';
 
-export const noteModels = atom({
+export const noteModelsState = atom({
     key: "NoteModels",
     default: Array<NoteModel>()
 })

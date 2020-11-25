@@ -1,0 +1,107 @@
+[contenteditable] {
+  outline: 0px solid transparent;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.deck-list {
+  -ms-flex-preferred-size: 20rem;
+      flex-basis: 20rem;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 0 2rem 0 0;
+}
+
+.deck-list ul {
+  list-style-type: none;
+}
+
+.deck-list ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.deck-list ul li:hover {
+  background-color: #ddd;
+  text-decoration: underline;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.deck-list ul li:active, .deck-list ul li:focus {
+  background-color: #999;
+  text-decoration: underline;
+}
+
+.deck-list ul li div {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.deck-list ul li div.deck-count {
+  -ms-flex-item-align: right;
+      -ms-grid-row-align: right;
+      align-self: right;
+}
+
+.note-container {
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+  -webkit-box-flex: 999;
+      -ms-flex-positive: 999;
+          flex-grow: 999;
+  min-width: 50%;
+}
+
+.note-container .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: right wrap;
+          flex-flow: right wrap;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  margin: 1.5rem;
+  padding: 0.5rem;
+}
+
+.note-container .col {
+  width: 50%;
+  padding: 1rem;
+}
+
+.note-container .col .field-label, .note-container .col .tag-label {
+  font-weight: bold;
+}
+
+.note-container .col .field-content, .note-container .col .tag-content {
+  margin: 5px 0 0 0;
+  padding: 5px;
+}
+
+.note-container .col .field-content:hover, .note-container .col .tag-content:hover {
+  border: 1px solid #ddd;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.note-container .col .field-content:active, .note-container .col .tag-content:active {
+  border: 1px solid #999;
+}
+/*# sourceMappingURL=App.css.map */
