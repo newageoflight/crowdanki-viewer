@@ -1,4 +1,3 @@
-
 export function range(start: number, stop?: number, step?: number): Array<number> {
     if (typeof stop == "undefined") {
         stop = start;
