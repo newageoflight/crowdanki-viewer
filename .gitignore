@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# testing files
+Anki_for_GSSE/
+.vscode/
+.eslintcache
