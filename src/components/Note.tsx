@@ -34,7 +34,7 @@ export const Note: React.FC<Props> = ({note, model}) => {
                 </div>
             </div>
             <div className="col note-view">
-                <CardCarousel key={note.guid} note={note} templates={model.tmpls}/>
+                <CardCarousel key={note.guid} note={note} model={model}/>
             </div>
         </div>
     )
