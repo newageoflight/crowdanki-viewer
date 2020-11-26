@@ -79,7 +79,7 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
             return clozeItems;
         })
         clozeAnswers = Object.fromEntries(zip(qClozeTags.map(t=>t.name), clozeAnswers))
-        console.log("Cloze Answers", clozeAnswers)
+        // console.log("Cloze Answers", clozeAnswers)
         let clozeQs = Object.keys(clozeAnswers).map(fieldName => {
             let fieldClozes: Map<number, Array<ClozeItem>> = clozeAnswers[fieldName];
             // console.log(fieldClozes, Array.from(fieldClozes))

@@ -14,6 +14,7 @@ interface Props {
 // TODO: consider creating a function to preprocess the HTML so that the image sources are redirected to public/deck/media
 
 export const Note: React.FC<Props> = ({note, model}) => {
+    // TODO: add onChange hooks for the contentEditable divs so that the changes are propagated back to the app state
     return (
         <div className="row note-item">
             <div className="col note-fields">
