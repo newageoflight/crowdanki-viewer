@@ -31,3 +31,17 @@ export function uniq<T>(arr: Array<T>) {
 export function zip(arr1: Array<any>, arr2: Array<any>) {
     return Array.from(Array(Math.max(arr2.length, arr1.length)), (_, i) => [arr1[i], arr2[i]])
 }
+
+// thanks: https://gist.github.com/goldhand/70de06a3bdbdb51565878ad1ee37e92b
+export function parseHTMLStyles(styles: string) {
+    return styles.split(";")
+        .filter(style => style.split(":")[0] && style.split(":")[1])
+        .map(style => [
+            style.split(":")[0].trim().replace(/^-ms-/, 'ms-').replace(/-./g, c => c.substr(1).toUpperCase()),
+            style.split(":").slice(1).join(":").trim()
+        ])
+        .reduce((styleObj, style) => ({
+            ...styleObj,
+            [style[0]]: style[1],
+        }), {});
+}

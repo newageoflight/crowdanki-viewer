@@ -125,4 +125,12 @@
   background: none;
   padding: 10px;
 }
+
+.carousel .slider-wrapper {
+  padding: 0 0 20px 0;
+}
+
+.carousel .carousel-status {
+  display: none;
+}
 /*# sourceMappingURL=App.css.map */
