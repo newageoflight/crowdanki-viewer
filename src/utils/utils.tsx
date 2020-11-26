@@ -28,6 +28,6 @@ export function uniq<T>(arr: Array<T>) {
     })
 }
 
-export function zip<T>(arr1: Array<T>, arr2: Array<T>) {
+export function zip(arr1: Array<any>, arr2: Array<any>) {
     return Array.from(Array(Math.max(arr2.length, arr1.length)), (_, i) => [arr1[i], arr2[i]])
 }

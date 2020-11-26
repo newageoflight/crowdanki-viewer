@@ -22,12 +22,19 @@ interface Props {
     template: CardTemplateInterface;
 }
 
+interface LabelledTags {
+    name: string;
+    type: string;
+    raw: string;
+}
+
 const templateSectionRe = /\{\{[#|^]([^}]*)\}\}(.+?)\{\{\1\}\}/msg;
 const templateTagRe = /\{\{(#|=|&|!|>|\{})?(.+?)\1?\}\}+/g;
 const clozeTextRe = /\{\{c(\d+)::(.*?)(?:::(.*))?\}\}/sig;
 
 // everything
 // a bit unsafe at the moment, doesn't completely support all of Anki's tag features
+// TODO: add types and interfaces to the arrow functions and objects so typescript will compile properly
 export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => {
     let qTemplate = template.bqfmt || template.qfmt;
     let aTemplate = template.bafmt || template.afmt;
@@ -41,35 +48,108 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
         // label all the fields that are cloze
         // render the question templates
         let qTemplateTags = ExtractAndLabelTags(qTemplate);
-        let qClozeTags = qTemplateTags.filter((tag) => tag.type === "cloze")
-        let clozeAnswers = qClozeTags.map((tag) => {
+        let aTemplateTags = ExtractAndLabelTags(aTemplate);
+        let qClozeTags = qTemplateTags.filter(tag => tag.type === "cloze")
+        let aClozeTags = aTemplateTags.filter(tag => tag.type === "cloze")
+        let clozeAnswers = qClozeTags.map((tag: LabelledTags) => {
             // get the field content
             let fieldContent = templateFields[tag.name];
             let clozes = fieldContent.matchAll(clozeTextRe);
             let clozeItems = {};
             // get each cloze item
             for (let match of clozes) {
-                let [raw, index, content] = match;
+                let [raw, index, content, hint] = match;
                 if (!(index in clozeItems))
-                    clozeItems[index] = [{content, raw}];
+                    clozeItems[index] = [{content, hint, raw}];
                 else
-                    clozeItems[index].push({content, raw})
+                    clozeItems[index].push({content, hint, raw})
             }
             return clozeItems;
         })
         clozeAnswers = Object.fromEntries(zip(qClozeTags.map(t=>t.name), clozeAnswers))
-        // console.log("Cloze Answers", clozeAnswers)
-        // first escape any cloze tags in the template
-        // then ask mustache to render the rest of the template
-        // now put the clozes in
-        // now render
+        console.log("Cloze Answers", clozeAnswers)
+        let clozeQs = Object.keys(clozeAnswers).map(fieldName => {
+            let fieldClozes = clozeAnswers[fieldName];
+            let replaced = Object.keys(fieldClozes).map(clozeNumber => {
+                let fieldText = templateFields[fieldName];
+                Object.entries(fieldClozes).map(([clozeIndex, replacementArr]) => {
+                    if (clozeIndex === clozeNumber) {
+                        replacementArr.map(({content, hint, raw}) => {
+                            fieldText = fieldText.replace(raw, `<span class='cloze'[${hint? hint : '...'}]</span>`)
+                        })
+                    } else {
+                        replacementArr.map(({content, hint, raw}) => {
+                            fieldText = fieldText.replace(raw, content)
+                        })
+                    }
+                })
+            })
+        })
+        // let clozeQs = Object.keys(clozeAnswers).map(fieldName => {
+        //     let fieldClozes = clozeAnswers[fieldName];
+        //     let replaced = Object.keys(fieldClozes).map(clozeNumber => {
+        //         let fieldText = templateFields[fieldName];
+        //         fieldClozes[clozeNumber].map(({content, hint, raw}) => {
+        //             fieldText = fieldText.replace(raw, `<span class='cloze'>[${hint ? hint : "..."}]</span>`)
+        //             // replace all the clozes in fieldtext that aren't this number with their content
+        //             return ""
+        //         })
+        //         return fieldText;
+        //     })
+        //     return replaced;
+        // });
+        let clozeAs = Object.keys(clozeAnswers).map(fieldName => {
+            let fieldClozes = clozeAnswers[fieldName];
+            let replaced = Object.keys(fieldClozes).map(clozeNumber => {
+                let fieldText = templateFields[fieldName];
+                Object.entries(fieldClozes).map(([clozeIndex, replacementArr]) => {
+                    if (clozeIndex === clozeNumber) {
+                        replacementArr.map(({content, hint, raw}) => {
+                            fieldText = fieldText.replace(raw, `<span class='cloze'>${content}</span>`)
+                        })
+                    } else {
+                        replacementArr.map(({content, hint, raw}) => {
+                            fieldText = fieldText.replace(raw, content)
+                        })
+                    }
+                })
+            })
+        })
+        // let clozeAs = Object.keys(clozeAnswers).map(fieldName => {
+        //     let fieldClozes = clozeAnswers[fieldName];
+        //     let replaced = Object.keys(fieldClozes).map(clozeNumber => {
+        //         let fieldText = templateFields[fieldName];
+        //         fieldClozes[clozeNumber].map(({content, hint, raw}) => {
+        //             fieldText = fieldText.replace(raw, `<span class='cloze'>${content}</span>`)
+        //             // replace all the clozes in fieldtext that aren't this number with their content
+        //             return ""
+        //         })
+        //         return fieldText;
+        //     })
+        //     return replaced;
+        // });
+        clozeQs = Object.fromEntries(zip(qClozeTags.map(t=>t.name), clozeQs));
+        clozeAs = Object.fromEntries(zip(aClozeTags.map(t=>t.name), clozeAs));
+        // let clozeAs = Object.keys(clozeAnswers).map(fieldName => {
+        //     return clozeAnswers[fieldName].map(({content, hint, raw}) => 
+        //         note.fields[fieldName].replace(raw, `<span class='cloze'>[${content}]</span>`)
+        //     )
+        // });
+        console.log(qClozeTags, clozeQs)
+        console.log(aClozeTags, clozeAs)
+        // then ask mustache to render the modified template
         // render the answer template
-        let aTemplateTags = ExtractAndLabelTags(aTemplate);
-        // console.log("Answer Template Tags", aTemplateTags);
         return (
-            <div className="card">
-                Your card here
-            </div>
+            <>
+                <div className="cardsides">
+                    <div className="card">
+                        Front
+                    </div>
+                    <div className="card">
+                        Back
+                    </div>
+                </div>
+            </>
         )
     } else {
         let qHTML = {__html: Mustache.render(qTemplate, templateFields)}
@@ -88,12 +168,6 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
 const PreprocessAnkiTemplate = (template: string): string => {
     // this doesn't actually work yet but the intent is for it to strip tag modifiers
     return template
-}
-
-interface LabelledTags {
-    name: string;
-    type: string;
-    raw: string;
 }
 
 function ExtractAndLabelTags(template: string): LabelledTags[] {
