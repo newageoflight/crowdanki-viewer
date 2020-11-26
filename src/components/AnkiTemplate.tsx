@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Mustache from "mustache";
 
 import { NoteInterface } from '../interfaces/NoteInterface';
@@ -53,7 +53,6 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
     let templateFields = Object.fromEntries(zip(model.flds.map((f)=>f.name), note.fields));
     templateFields["Tags"] = note.tags.join(" ");
     if (model.type === 1) {
-        // console.log("Template fields", templateFields);
         // label all the fields that are cloze
         // render the question templates
         let qTemplateTags = ExtractAndLabelTags(qTemplate);
@@ -79,10 +78,8 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
             return clozeItems;
         })
         clozeAnswers = Object.fromEntries(zip(qClozeTags.map(t=>t.name), clozeAnswers))
-        // console.log("Cloze Answers", clozeAnswers)
         let clozeQs = Object.keys(clozeAnswers).map(fieldName => {
             let fieldClozes: Map<number, Array<ClozeItem>> = clozeAnswers[fieldName];
-            // console.log(fieldClozes, Array.from(fieldClozes))
             return Array.from(fieldClozes.keys()).map((clozeNumber) => {
                 let fieldText = templateFields[fieldName];
                 fieldClozes.forEach((replacementArr, clozeIndex) => {
@@ -101,7 +98,6 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
         })
         let clozeAs = Object.keys(clozeAnswers).map(fieldName => {
             let fieldClozes: Map<number, Array<ClozeItem>> = clozeAnswers[fieldName];
-            // console.log(fieldClozes, Array.from(fieldClozes))
             return Array.from(fieldClozes.keys()).map((clozeNumber) => {
                 let fieldText = templateFields[fieldName];
                 fieldClozes.forEach((replacementArr, clozeIndex) => {
@@ -120,58 +116,32 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
         })
         clozeQs = Object.fromEntries(zip(qClozeTags.map(t=>t.name), clozeQs));
         clozeAs = Object.fromEntries(zip(aClozeTags.map(t=>t.name), clozeAs));
-        // console.log(qClozeTags, clozeQs)
         let qTemplates = qClozeTags.map(({name, type, raw}) => {
             let preRender = qTemplate.replace(raw, "{{cq}}");
-            // console.log(qTemplate, preRender)
             return clozeQs[name].map((question) => {
                 return Mustache.render(preRender, {cq: question, ...templateFields})
             })
         }).reduce((a,b) => a.concat(b))
-        // console.log(aClozeTags, clozeAs)
         let aTemplates = qClozeTags.map(({name, type, raw}) => {
             let preRender = aTemplate.replace(raw, "{{ca}}");
-            // console.log(preRender)
             return clozeAs[name].map((answer) => {
                 return Mustache.render(preRender, {ca: answer, ...templateFields})
             })
         }).reduce((a,b) => a.concat(b))
-        // console.log(qTemplates);
-        // console.log(aTemplates);
         return (
             <>
                 {range(qTemplates.length).map((i) => {
-                    // let qHTML = {__html: qTemplates[i]}
-                    // let aHTML = {__html: aTemplates[i]}
-                    // let cardStyle = {__html: model.css}
                     return (
                         <FlipCard qHTML={qTemplates[i]} aHTML={aTemplates[i]} style={model.css} />
-                    // <div className="cardsides">
-                    //     <style dangerouslySetInnerHTML={cardStyle}></style>
-                    //     <div className="card" dangerouslySetInnerHTML={qHTML}>
-                    //     </div>
-                    //     <div className="card" dangerouslySetInnerHTML={aHTML}>
-                    //     </div>
-                    // </div>
                     )}
                 )}
             </>
         )
     } else {
-        // let qHTML = {__html: Mustache.render(qTemplate, templateFields)}
-        // let aHTML = {__html: Mustache.render(aTemplate, templateFields)}
-        // let cardStyle = {__html: model.css}
         return (
             <FlipCard qHTML={Mustache.render(qTemplate, templateFields)}
                 aHTML={Mustache.render(aTemplate, templateFields)}
                 style={model.css} />
-            // <div className="cardsides">
-            //     <style dangerouslySetInnerHTML={cardStyle}></style>
-            //     <div className="card" dangerouslySetInnerHTML={qHTML}>
-            //     </div>
-            //     <div className="card" dangerouslySetInnerHTML={aHTML}>
-            //     </div>
-            // </div>
         )
     }
 }

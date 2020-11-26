@@ -6,13 +6,15 @@ import { decksState } from './context/DeckState';
 import { NoteList } from './components/NoteList';
 
 import './css/App.css';
-import logo from './logo.svg'
 
 // to prevent VSCode from glitching out about the TSConfig:
 // https://stackoverflow.com/a/64969461/5403467
 
 // later planning to add Anki save and export support with mkanki:
 // https://github.com/nornagon/mkanki
+
+// TODO: add a state atom for current deck
+// TODO: add an atom family for editing a note
 
 function App() {
   const [decks, setDecks] = useRecoilState(decksState);
