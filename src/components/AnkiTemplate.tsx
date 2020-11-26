@@ -123,13 +123,15 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
         // console.log(qClozeTags, clozeQs)
         let qTemplates = qClozeTags.map(({name, type, raw}) => {
             let preRender = qTemplate.replace(raw, "{{cq}}");
+            // console.log(qTemplate, preRender)
             return clozeQs[name].map((question) => {
                 return Mustache.render(preRender, {cq: question, ...templateFields})
             })
         }).reduce((a,b) => a.concat(b))
         // console.log(aClozeTags, clozeAs)
         let aTemplates = qClozeTags.map(({name, type, raw}) => {
-            let preRender = qTemplate.replace(raw, "{{ca}}");
+            let preRender = aTemplate.replace(raw, "{{ca}}");
+            // console.log(preRender)
             return clozeAs[name].map((answer) => {
                 return Mustache.render(preRender, {ca: answer, ...templateFields})
             })

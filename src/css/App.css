@@ -10,6 +10,13 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  max-width: 90%;
+  margin: 10px auto 0 auto;
+}
+
+.container .header {
+  clear: both;
+  width: 100%;
 }
 
 .deck-list {
@@ -23,6 +30,7 @@
 
 .deck-list ul {
   list-style-type: none;
+  padding-left: 1rem;
 }
 
 .deck-list ul li {
@@ -32,6 +40,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  padding: 0.3rem;
 }
 
 .deck-list ul li:hover {
@@ -103,6 +112,10 @@
 
 .note-container .col .field-content:active, .note-container .col .tag-content:active {
   border: 1px solid #999;
+}
+
+.note-container .col .field-content img, .note-container .col .tag-content img {
+  max-width: 100%;
 }
 
 .carousel .control-arrow {
