@@ -15,6 +15,7 @@ import './css/App.css';
 
 // TODO: add a state atom for current deck
 // TODO: add an atom family for editing a note
+// TODO: somehow tie this into a MERN project
 
 function App() {
   const [decks, setDecks] = useRecoilState(decksState);
