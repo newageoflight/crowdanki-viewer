@@ -16,6 +16,7 @@
     "@types/recoil": "^0.0.1",
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
+    "mustache": "^4.0.1",
     "nuka-carousel": "^4.7.3",
     "pure-react-carousel": "^1.27.6",
     "react": "^17.0.1",

@@ -16,7 +16,7 @@ export const CardCarousel: React.FC<Props> = ({note, model}) => {
     // TODO: render note with templates
 
     return (
-        <Carousel>
+        <Carousel showThumbs={false}>
             {model.tmpls.map((template) => (
                 <RenderAnkiTemplate note={note} model={model} template={template} />
             ))}

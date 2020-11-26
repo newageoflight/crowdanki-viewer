@@ -10,6 +10,9 @@ import './css/App.css';
 // to prevent VSCode from glitching out about the TSConfig:
 // https://stackoverflow.com/a/64969461/5403467
 
+// later planning to add Anki save and export support with mkanki:
+// https://github.com/nornagon/mkanki
+
 function App() {
   const [decks, setDecks] = useRecoilState(decksState);
 
