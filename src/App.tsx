@@ -36,7 +36,7 @@ function App() {
       <div className="container">
         <div className="header">
           <img src={logo} alt="Logo" />
-          <h1>CrowdAnki Web</h1>
+          <h1>CrowdAnki Web Viewer</h1>
         </div>
         <div className="deck-list">
           <h2>Decks</h2>

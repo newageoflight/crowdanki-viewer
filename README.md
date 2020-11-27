@@ -1,5 +1,7 @@
 # CrowdAnki viewer
 
-A simple app written in React.js/Typescript for viewing and editing CrowdAnki JSON files.
+React/Recoil/Typescript web viewer for CrowdAnki JSON files.
 
-Still under construction...
+Still in the prototype stage. Features on the roadmap:
+- [ ] Editing and saving arbitrary CrowdAnki JSON files
+- [ ] Collaborative deck editing over the Web via Socket.io or Diffsync
