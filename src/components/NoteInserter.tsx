@@ -1,11 +1,13 @@
 import React from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
 
 import { noteViewState } from './../context/NoteViewState';
 import { createNote } from './../interfaces/NoteInterface';
 import { noteModelsState } from './../context/NoteModelsState';
 import { NoteModel } from '../interfaces/NoteModel';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 export const NoteInserter: React.FC<{position: number, useModel: string}> = ({position, useModel}) => {
     const [noteListState, setNoteListState] = useRecoilState(noteViewState);
@@ -26,7 +28,7 @@ export const NoteInserter: React.FC<{position: number, useModel: string}> = ({po
 
     return (
         <div className="note-inserter">
-            <button className="add-note" onClick={addNote}>Add note</button>
+            <button className="add-note" onClick={addNote}><FontAwesomeIcon icon={faPlus}/> Add note</button>
         </div>
     )
 }

@@ -33,11 +33,13 @@ function App() {
 
   return (
     <>
-      <div className="container">
-        <div className="header">
+      <div className="header">
+        <div className="container">
           <img src={logo} alt="Logo" />
           <h1>CrowdAnki Web Viewer</h1>
         </div>
+      </div>
+      <div className="container">
         <div className="deck-list">
           <h2>Decks</h2>
           <Deck key={decks.crowdanki_uuid} item={decks} level={0}/>

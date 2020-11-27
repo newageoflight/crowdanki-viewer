@@ -6,6 +6,8 @@ import { CardCarousel } from './CardCarousel';
 import { useRecoilState } from 'recoil';
 import { noteStateFamily } from './../context/NoteStateFamily';
 import { noteViewState } from './../context/NoteViewState';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     key: string;
@@ -61,7 +63,7 @@ export const Note: React.FC<Props> = ({note, model}) => {
                 </div>
                 <br/>
                 <div>
-                    <button className="note-delete" onClick={deleteNote}>Delete note</button>
+                    <button className="note-delete" onClick={deleteNote}><FontAwesomeIcon icon={faTrash}/> Delete note</button>
                 </div>
             </div>
             <div className="col note-view">

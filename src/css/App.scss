@@ -27,22 +27,29 @@ button {
   max-width: 90%;
   margin: 0 auto 0 auto;
 
-  .header {
-    width: 100%;
+}
+
+.header {
+  width: 100%;
+  background-color: #eee;
+  
+  .container {
+    max-width: 95%;
+    margin: 0 auto 0 auto;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #eee;
+  }
 
-    img {
-      display: inline-block;
-      flex: 1;
-    }
+  img {
+    display: inline-block;
+    flex: 1;
+  }
 
-    h1 {
-      display: inline-block;
-      flex: 9;
-    }
+  h1 {
+    display: inline-block;
+    flex: 9;
   }
 }
 
