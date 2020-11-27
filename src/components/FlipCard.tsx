@@ -27,7 +27,7 @@ export const FlipCard: React.FC<Props> = ({qHTML, aHTML, style}) => {
                 </div>
             </ReactCardFlip>
             <br/>
-            <button onClick={handleClick}>{flipped ? "Show Question" : "Show Answer"}</button>
+            <button className="card-flipper" onClick={handleClick}>{flipped ? "Show Question" : "Show Answer"}</button>
         </div>
     )
 }

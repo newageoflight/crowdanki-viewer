@@ -26,3 +26,7 @@ yarn-error.log*
 Anki_for_GSSE/
 .vscode/
 .eslintcache
+
+# compiled scss
+/src/css/App.css
+/src/css/App.css.map

@@ -23,7 +23,7 @@ export const CardCarousel: React.FC<Props> = ({note, model}) => {
     )
     
     let sliderElems = renderedElems.flat().map((elem, idx) => (
-        <FlipCard {...elem} />
+        <FlipCard key={idx} {...elem} />
     ))
 
     return (

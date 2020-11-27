@@ -18,11 +18,11 @@ export const NoteList = () => {
             <h2>Notes</h2>
            {notes.map((note, idx) => (
                <>
-                <NoteInserter position={idx} useModel={note.note_model_uuid}/>
+                <NoteInserter key={idx} position={idx} useModel={note.note_model_uuid}/>
                 <Note key={note.guid} note={note} model={uniqModels.find((m) => m.crowdanki_uuid === note.note_model_uuid) as NoteModel}/>
                </>
            ))} 
-           {notes.length > 0 ? (<NoteInserter position={notes.length-1} useModel={notes[notes.length-1].note_model_uuid} />) : ""}
+           {notes.length > 0 ? (<NoteInserter key={notes.length} position={notes.length-1} useModel={notes[notes.length-1].note_model_uuid} />) : ""}
         </div>
     )
 }

@@ -4,16 +4,45 @@
   border-radius: 5px;
 }
 
+button {
+  background: transparent;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  padding: 5px;
+  transition: 0.3s;
+
+  &:hover {
+    background: #ddd;
+  }
+
+  &:active {
+    background: #999;
+  }
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
   max-width: 90%;
-  margin: 10px auto 0 auto;
+  margin: 0 auto 0 auto;
 
   .header {
-    clear: both;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
 
+    img {
+      display: inline-block;
+      flex: 1;
+    }
+
+    h1 {
+      display: inline-block;
+      flex: 9;
+    }
   }
 }
 
@@ -28,6 +57,7 @@
 
     li {
       display: flex;
+      align-items: center;
 
       .deck-details {
         display: inline-flex;
@@ -49,6 +79,16 @@
 
       button.show-children {
         flex: 1;
+        height: 25px;
+        width: 25px;
+
+        &:hover {
+          background: #ddd;
+        }
+
+        &:active {
+          background: #999;
+        }
       }
 
     }
@@ -91,6 +131,33 @@
 
       img {
         max-width: 100%;
+      }
+    }
+
+    button.note-delete {
+      background-color: #f44336;
+      color: white;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #c82333;
+      }
+
+      &:active {
+        background-color: #a71e2c;
+      }
+    }
+
+    button.card-flipper {
+      background-color: #eee;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #ccc;
+      }
+
+      &:active {
+        background-color: #888;
       }
     }
   }

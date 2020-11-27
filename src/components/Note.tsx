@@ -49,7 +49,7 @@ export const Note: React.FC<Props> = ({note, model}) => {
                         <div className="field-label">
                             {model.flds[idx].name}
                         </div>
-                        <ContentEditable onChange={e => handleFieldChange(idx, e)} html={field} className="field-content" />
+                        <ContentEditable key={idx} onChange={e => handleFieldChange(idx, e)} html={field} className="field-content" />
                     </div>
                 ))}
                 <div className="tags">
@@ -58,6 +58,7 @@ export const Note: React.FC<Props> = ({note, model}) => {
                     </div>
                     <ContentEditable onChange={handleTagChange} html={noteState.tags.join(" ")} className="tag-content" />
                 </div>
+                <br/>
                 <div>
                     <button className="note-delete" onClick={deleteNote}>Delete note</button>
                 </div>

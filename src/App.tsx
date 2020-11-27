@@ -6,6 +6,7 @@ import { decksState } from './context/DeckState';
 import { NoteList } from './components/NoteList';
 
 import './css/App.css';
+import logo from './crowdanki.svg';
 
 // to prevent VSCode from glitching out about the TSConfig:
 // https://stackoverflow.com/a/64969461/5403467
@@ -34,7 +35,8 @@ function App() {
     <>
       <div className="container">
         <div className="header">
-          <h1>CrowdAnki JSON viewer</h1>
+          <img src={logo} alt="Logo" />
+          <h1>CrowdAnki Web</h1>
         </div>
         <div className="deck-list">
           <h2>Decks</h2>
