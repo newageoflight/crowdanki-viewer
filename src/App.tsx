@@ -13,9 +13,8 @@ import './css/App.css';
 // later planning to add Anki save and export support with mkanki:
 // https://github.com/nornagon/mkanki
 
-// TODO: add a state atom for current deck
-// TODO: add an atom family for editing a note
 // TODO: somehow tie this into a MERN project
+// TODO: add filter views for tags
 
 function App() {
   const [decks, setDecks] = useRecoilState(decksState);
@@ -38,6 +37,7 @@ function App() {
           <h1>CrowdAnki JSON viewer</h1>
         </div>
         <div className="deck-list">
+          <h2>Decks</h2>
           <Deck key={decks.crowdanki_uuid} item={decks} level={0}/>
         </div>
         <NoteList/>

@@ -46,6 +46,11 @@ export function parseHTMLStyles(styles: string) {
         }), {});
 }
 
+export function objGet(object, key, default_value) {
+    let result = object[key];
+    return (typeof result !== "undefined") ? result : default_value;
+}
+
 /*
 
 for the moment I can't figure out how to get the images to display correctly out of the box

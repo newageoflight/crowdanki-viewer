@@ -28,28 +28,29 @@
 
     li {
       display: flex;
-      justify-content: space-between;
-      padding: 0.3rem;
 
-      &:hover {
-        background-color: #ddd;
-        text-decoration: underline;
-        transition: 0.3s;
-      }
-
-      &:active, &:focus {
-        background-color: #999;
-        text-decoration: underline;
-      }
-
-      div {
+      .deck-details {
         display: inline-flex;
+        justify-content: space-between;
+        padding: 0.3rem;
+        flex: 19;
 
-        &.deck-count {
-          align-self: right;
+        &:hover {
+          background-color: #ddd;
+          text-decoration: underline;
+          transition: 0.3s;
         }
 
+        &:active, &:focus {
+          background-color: #999;
+          text-decoration: underline;
+        }
       }
+
+      button.show-children {
+        flex: 1;
+      }
+
     }
   }
 }
@@ -92,37 +93,5 @@
         max-width: 100%;
       }
     }
-  }
-}
-
-.carousel {
-  .control-arrow {
-    color: black !important;
-  }
-
-  // i honestly tried to do this the smart way but it wouldn't work
-  .control-next.control-arrow:before {
-    border-left: 8px solid #000;
-  }
-
-  .control-prev.control-arrow:before {
-    border-right: 8px solid #000;
-  }
-
-  .dot {
-    background: black !important;
-  }
-
-  .slide {
-    background: none;
-    padding: 10px;
-  }
-
-  .slider-wrapper {
-    padding: 0 0 20px 0;
-  }
-
-  .carousel-status {
-    display: none;
   }
 }

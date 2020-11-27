@@ -18,7 +18,7 @@ export const FlipCard: React.FC<Props> = ({qHTML, aHTML, style}) => {
     let styleInner = {__html: style}
 
     return (
-        <>
+        <div className="card-sides">
             <style dangerouslySetInnerHTML={styleInner}></style>
             <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
                 <div className="card" dangerouslySetInnerHTML={qInner}>
@@ -28,6 +28,6 @@ export const FlipCard: React.FC<Props> = ({qHTML, aHTML, style}) => {
             </ReactCardFlip>
             <br/>
             <button onClick={handleClick}>{flipped ? "Show Question" : "Show Answer"}</button>
-        </>
+        </div>
     )
 }

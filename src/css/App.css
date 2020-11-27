@@ -37,34 +37,37 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.deck-list ul li .deck-details {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0.3rem;
+  -webkit-box-flex: 19;
+      -ms-flex: 19;
+          flex: 19;
 }
 
-.deck-list ul li:hover {
+.deck-list ul li .deck-details:hover {
   background-color: #ddd;
   text-decoration: underline;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-.deck-list ul li:active, .deck-list ul li:focus {
+.deck-list ul li .deck-details:active, .deck-list ul li .deck-details:focus {
   background-color: #999;
   text-decoration: underline;
 }
 
-.deck-list ul li div {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.deck-list ul li div.deck-count {
-  -ms-flex-item-align: right;
-      -ms-grid-row-align: right;
-      align-self: right;
+.deck-list ul li button.show-children {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .note-container {
@@ -116,34 +119,5 @@
 
 .note-container .col .field-content img, .note-container .col .tag-content img {
   max-width: 100%;
-}
-
-.carousel .control-arrow {
-  color: black !important;
-}
-
-.carousel .control-next.control-arrow:before {
-  border-left: 8px solid #000;
-}
-
-.carousel .control-prev.control-arrow:before {
-  border-right: 8px solid #000;
-}
-
-.carousel .dot {
-  background: black !important;
-}
-
-.carousel .slide {
-  background: none;
-  padding: 10px;
-}
-
-.carousel .slider-wrapper {
-  padding: 0 0 20px 0;
-}
-
-.carousel .carousel-status {
-  display: none;
 }
 /*# sourceMappingURL=App.css.map */

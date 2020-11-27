@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Mustache from "mustache";
 
 import { NoteInterface } from '../interfaces/NoteInterface';
@@ -61,7 +61,7 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
         let aClozeTags = aTemplateTags.filter(tag => tag.type === "cloze")
         let clozeAnswers = qClozeTags.map((tag: LabelledTags): Map<number, Array<ClozeItem>> => {
             // get the field content
-            let fieldContent = templateFields[tag.name];
+            let fieldContent = templateFields[tag.name] || "";
             let clozes = fieldContent.matchAll(clozeTextRe);
             let clozeItems = new Map<number, Array<ClozeItem>>();
             // get each cloze item
@@ -81,7 +81,7 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
         let clozeQs = Object.keys(clozeAnswers).map(fieldName => {
             let fieldClozes: Map<number, Array<ClozeItem>> = clozeAnswers[fieldName];
             return Array.from(fieldClozes.keys()).map((clozeNumber) => {
-                let fieldText = templateFields[fieldName];
+                let fieldText = templateFields[fieldName] || "";
                 fieldClozes.forEach((replacementArr, clozeIndex) => {
                     if (clozeIndex === clozeNumber) {
                         replacementArr.forEach(({content, hint, raw}) => {
@@ -99,7 +99,7 @@ export const RenderAnkiTemplate: React.FC<Props> = ({note, model, template}) => 
         let clozeAs = Object.keys(clozeAnswers).map(fieldName => {
             let fieldClozes: Map<number, Array<ClozeItem>> = clozeAnswers[fieldName];
             return Array.from(fieldClozes.keys()).map((clozeNumber) => {
-                let fieldText = templateFields[fieldName];
+                let fieldText = templateFields[fieldName] || "";
                 fieldClozes.forEach((replacementArr, clozeIndex) => {
                     if (clozeIndex === clozeNumber) {
                         replacementArr.forEach(({content, hint, raw}) => {
