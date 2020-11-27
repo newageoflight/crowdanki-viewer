@@ -62,7 +62,7 @@ export const Note: React.FC<Props> = ({note, model}) => {
                     <button className="note-delete" onClick={deleteNote}>Delete note</button>
                 </div>
             </div>
-            <div className="col noteState-view">
+            <div className="col note-view">
                 <CardCarousel key={noteState.guid} note={noteState} model={model}/>
             </div>
         </div>

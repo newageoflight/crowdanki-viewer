@@ -1,9 +1,13 @@
 import React from 'react';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+
 
 import { NoteInterface } from './../interfaces/NoteInterface';
 import { NoteModel } from './../interfaces/NoteModel';
-import { RenderAnkiTemplate } from './AnkiTemplate';
+// import { RenderAnkiTemplate } from './AnkiTemplate';
+import { RenderAnkiTemplateAsObjects } from './../utils/AnkiRender';
+import { FlipCard } from './FlipCard';
 
 interface Props {
     key: string;
@@ -12,22 +16,19 @@ interface Props {
 }
 
 export const CardCarousel: React.FC<Props> = ({note, model}) => {
-    // TODO: render note with templates
-    let renderedElems = model.tmpls.map((template) => (
-        <RenderAnkiTemplate note={note} model={model} template={template} />
-    ))
+    // none of the carousel components actually work the way I want them to...
+    let renderedElems = model.tmpls.map((template) => 
+        RenderAnkiTemplateAsObjects(note, model, template)
+        // <RenderAnkiTemplate note={note} model={model} template={template} />
+    )
     
-    let sliderElems = renderedElems.map((elem, idx) => (
-        <Slide index={idx}>{elem}</Slide>
+    let sliderElems = renderedElems.flat().map((elem, idx) => (
+        <FlipCard {...elem} />
     ))
 
     return (
-        <CarouselProvider naturalSlideHeight={80} naturalSlideWidth={120} totalSlides={model.tmpls.length}>
-            <Slider>
-                {sliderElems}
-            </Slider>
-            <ButtonBack>Back</ButtonBack>
-            <ButtonNext>Next</ButtonNext>
-        </CarouselProvider>
+        <Carousel showThumbs={false}>
+            {sliderElems}
+        </Carousel>
     )
 }

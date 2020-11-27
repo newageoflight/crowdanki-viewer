@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Deck: React.FC<Props> = (props) => {
-    const [showChildren, setShowChildren] = useState(true);
+    const [showChildren, setShowChildren] = useState(false);
     const setNoteView = useSetRecoilState(noteViewState);
     const setNoteModels = useSetRecoilState(noteModelsState);
 
@@ -30,7 +30,7 @@ export const Deck: React.FC<Props> = (props) => {
             <ul>
                 <li className="row">
                     <button className="show-children" onClick={() => {setShowChildren(!showChildren)}}>
-                        {showChildren ? "+" : "-"}
+                        {showChildren ? "-" : "+"}
                     </button>
                     <div className="deck-details" onClick={updateView}>
                         <div className="deck-name">
