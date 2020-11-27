@@ -3,6 +3,7 @@ import { useSetRecoilState } from 'recoil'
 import { noteViewState } from './../context/NoteViewState';
 import { DeckInterface } from '../interfaces/DeckInterface';
 import { noteModelsState } from './../context/NoteModelsState';
+import { uniq } from "../utils/utils";
 
 interface Props {
     key: string;
@@ -16,7 +17,7 @@ export const Deck: React.FC<Props> = (props) => {
     const setNoteModels = useSetRecoilState(noteModelsState);
 
     useEffect(() => {
-        setNoteModels((oldModels) => props.item.note_models === undefined ? oldModels : oldModels.concat(props.item.note_models))
+        setNoteModels((oldModels) => props.item.note_models === undefined ? oldModels : uniq(oldModels.concat(props.item.note_models)))
     }, [props.item.note_models, setNoteModels])
 
     const updateView = () => {

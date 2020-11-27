@@ -56,7 +56,7 @@ export function objGet(object, key, default_value) {
 for the moment I can't figure out how to get the images to display correctly out of the box
 so use this in the chrome console:
 
-$$("img").forEach((i) => {
+$$(".note-container img").forEach((i) => {
     let sourceURL = new URL(i.src);
     sourceURL.pathname = "/Anki_for_GSSE/media/" + sourceURL.pathname;
     i.src = sourceURL;

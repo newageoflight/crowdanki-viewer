@@ -37,7 +37,8 @@ export const Note: React.FC<Props> = ({note, model}) => {
 
     const deleteNote = (evt) => {
         let newListState = noteListState.filter(n => n.guid !== note.guid);
-        setNoteListState(newListState);
+        if (window.confirm("Are you sure you want to delete this note?"))
+            setNoteListState(newListState);
     }
 
     return (

@@ -4,14 +4,12 @@ import { useRecoilValue } from 'recoil';
 import { Note } from "./Note";
 import { noteViewState } from './../context/NoteViewState';
 import { noteModelsState } from './../context/NoteModelsState';
-import { uniq } from "../utils/utils"
 import { NoteModel } from './../interfaces/NoteModel';
 import { NoteInserter } from './NoteInserter';
 
 export const NoteList = () => {
     const notes = useRecoilValue(noteViewState);
     const noteModels = useRecoilValue(noteModelsState);
-    const uniqModels = uniq(noteModels);
 
     return (
         <div className="note-container">
@@ -19,7 +17,7 @@ export const NoteList = () => {
            {notes.map((note, idx) => (
                <>
                 <NoteInserter key={idx} position={idx} useModel={note.note_model_uuid}/>
-                <Note key={note.guid} note={note} model={uniqModels.find((m) => m.crowdanki_uuid === note.note_model_uuid) as NoteModel}/>
+                <Note key={note.guid} note={note} model={noteModels.find((m) => m.crowdanki_uuid === note.note_model_uuid) as NoteModel}/>
                </>
            ))} 
            {notes.length > 0 ? (<NoteInserter key={notes.length} position={notes.length-1} useModel={notes[notes.length-1].note_model_uuid} />) : ""}
