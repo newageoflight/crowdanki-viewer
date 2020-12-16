@@ -23,13 +23,16 @@ function App() {
   useEffect(() => {
     // if you don't do it this way typescript will throw a fit
     async function getData() {
-      const getFetch = await fetch("/Anki_for_GSSE/deck.json");
+      const getFetch = await fetch("/getdata");
       const getJSON = await getFetch.json();
       setDecks(getJSON);
     }
     
     getData();
-  }, [setDecks]);
+    // note: useEffect only re-calls when a dependency array item changes
+    // this also tends to make the app extremely slow in practice so i'll need to figure something out
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>

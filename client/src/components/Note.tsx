@@ -43,6 +43,16 @@ export const Note: React.FC<Props> = ({note, model}) => {
             setNoteListState(newListState);
     }
 
+    const handleKeyEvents = (evt) => {
+        switch (evt.key) {
+            case "c":
+                if (evt.ctrlKey && evt.shiftKey) {
+                    console.log("Cloze function called")
+                    // if a selection is active, wrap the selection in cloze brackets
+                }
+        }
+    }
+
     return (
         <div className="row note-item">
             <div className="col note-fields">
@@ -52,7 +62,9 @@ export const Note: React.FC<Props> = ({note, model}) => {
                         <div className="field-label">
                             {model.flds[idx].name}
                         </div>
-                        <ContentEditable key={idx} onChange={e => handleFieldChange(idx, e)} html={field} className="field-content" />
+                        <ContentEditable key={idx} onChange={e => handleFieldChange(idx, e)}
+                            onKeyDown={handleKeyEvents}
+                            html={field} className="field-content" />
                     </div>
                 ))}
                 <div className="tags">
