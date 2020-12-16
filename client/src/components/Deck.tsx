@@ -4,6 +4,7 @@ import { noteViewState } from './../context/NoteViewState';
 import { DeckInterface } from '../interfaces/DeckInterface';
 import { noteModelsState } from './../context/NoteModelsState';
 import { uniq } from "../utils/utils";
+import { NoteInterface } from '../interfaces/NoteInterface';
 
 interface Props {
     key: string;
@@ -20,9 +21,24 @@ export const Deck: React.FC<Props> = (props) => {
         setNoteModels((oldModels) => props.item.note_models === undefined ? oldModels : uniq(oldModels.concat(props.item.note_models)))
     }, [props.item.note_models, setNoteModels])
 
+    const recurseNotes = () => {
+        // dfs through the deck tree
+        // add notes of all children to the allNotes array and return
+        let allNotes = new Array<NoteInterface>();
+        let deckStack = new Array<DeckInterface>();
+        deckStack.push(props.item)
+        while (deckStack.length > 0) {
+            let currentDeck = deckStack.pop() as DeckInterface;
+            allNotes = allNotes.concat(currentDeck.notes);
+            deckStack = deckStack.concat(currentDeck.children);
+        }
+        return allNotes;
+    }
+    const everyNotes = recurseNotes();
+
     const updateView = () => {
         setNoteView((oldView) => [
-            ...props.item.notes
+            ...everyNotes
         ]);
     }
 
@@ -38,7 +54,7 @@ export const Deck: React.FC<Props> = (props) => {
                             {props.item.name}
                         </div>
                         <div className="deck-count">
-                            {props.item.notes.length}
+                            {everyNotes.length}
                         </div>
                     </div>
                 </li>
