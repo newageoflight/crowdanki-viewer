@@ -19,7 +19,8 @@ export const Deck: React.FC<Props> = (props) => {
 
     useEffect(() => {
         setNoteModels((oldModels) => props.item.note_models === undefined ? oldModels : uniq(oldModels.concat(props.item.note_models)))
-    }, [props.item.note_models, setNoteModels])
+        // eslint-disable-next-line
+    }, [])
 
     const recurseNotes = () => {
         // dfs through the deck tree

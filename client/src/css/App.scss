@@ -170,6 +170,38 @@ button {
   }
 }
 
+.note-inserter {
+  position: relative;
+  display: inline-block;
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 150px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 0;
+    padding: 0;
+    font-size: 0.8rem;
+
+    li {
+      list-style-type: none;
+      padding: 0.3rem;
+      padding-left: 16px;
+      margin: 0;
+    }
+  }
+
+  &:hover .dropdown-content {
+    display: block;
+
+    li:hover {
+      background-color: #ddd;
+    }
+  }
+}
+
 .carousel {
   .slide {
     background-color: transparent;

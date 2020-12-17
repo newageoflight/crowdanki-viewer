@@ -46,8 +46,8 @@ export const Note: React.FC<Props> = ({note, model}) => {
     const handleKeyEvents = (evt) => {
         switch (evt.key) {
             case "c":
-                if (evt.ctrlKey && evt.shiftKey) {
-                    console.log("Cloze function called")
+                if (evt.ctrlKey && evt.altKey) {
+                    console.log("Cloze function called");
                     // if a selection is active, wrap the selection in cloze brackets
                 }
         }
