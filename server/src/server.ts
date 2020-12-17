@@ -1,15 +1,23 @@
 import express from "express";
+import { graphqlHTTP } from "express-graphql";
+import cors from "cors";
 import path from "path";
 // import http from "http";
 // import { Server as IoServer } from "socket.io";
+import { schema } from "./models/GQSchema"
 import { InitialState } from './data/InitialState';
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 // const httpServer = new http.Server(app);
 // const io = new IoServer(httpServer);
 // move to mongodb to store decks
 // also should consider finding some way to store images in db but in a way compatible with the current setup
+app.use(cors());
+app.use("/graphql", graphqlHTTP({
+    schema,
+    graphiql: true
+}))
 app.use(express.static(path.join("public", "media")))
 
 app.get("/getdata", (req, res) => {
