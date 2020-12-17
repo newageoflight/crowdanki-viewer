@@ -13,8 +13,12 @@ const port = 4000;
 app.use(express.static(path.join("public", "media")))
 
 app.get("/getdata", (req, res) => {
-    console.log("Server called, sending initial state");
+    console.log("Sending initial state");
     res.send(InitialState);
+})
+
+app.get("/getdecks", (req, res) => {
+    console.log("Sending deck list only")
 })
 
 // Socket connection should note:

@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { NoteModel } from './../interfaces/NoteModel';
+import { NoteModel } from '../interfaces/NoteModel';
 
 export const noteModelsState = atom({
     key: "NoteModels",

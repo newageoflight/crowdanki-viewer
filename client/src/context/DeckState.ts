@@ -14,7 +14,7 @@ export const decksState = atom({
     extendNew: 0,
     extendRev: 0,
     media_files: [],
-    name: "",
+    name: "Default",
     note_models: [],
     notes: []
   }
