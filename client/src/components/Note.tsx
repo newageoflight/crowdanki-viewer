@@ -33,7 +33,8 @@ export const Note: React.FC<Props> = ({note, model}) => {
 
     const handleTagChange = (evt) => {
         let newState = {...noteState};
-        newState.tags = evt.currentTarget.textContent.split(" ");
+        // the filter bit is just to remove empty strings/elements
+        newState.tags = evt.currentTarget.textContent.split(" ").filter(e => e);
         setNoteState(newState);
     }
 

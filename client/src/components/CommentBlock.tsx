@@ -11,3 +11,6 @@ export const CommentBlock: React.FC<Props> = () => {
         </div>
     )
 }
+
+// todo: add an EasyMDE textarea within this component
+// https://www.npmjs.com/package/react-simplemde-editor

@@ -1,5 +1,5 @@
 export interface DeckConfigInterface {
-    __type__: string;
+    __type__: "DeckConfig";
     autoplay: boolean;
     crowdanki_uuid: string;
     dyn: boolean;

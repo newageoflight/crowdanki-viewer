@@ -1,5 +1,5 @@
 export interface NoteInterface {
-    __type__: string;
+    __type__: "Note";
     fields: Array<string>;
     guid: string;
     note_model_uuid: string;
@@ -7,7 +7,7 @@ export interface NoteInterface {
 }
 
 export const createEmptyNote = (): NoteInterface => ({
-    __type__: '',
+    __type__: 'Note',
     fields: Array<string>(),
     guid: '',
     note_model_uuid: '',

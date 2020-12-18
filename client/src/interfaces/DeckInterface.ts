@@ -2,7 +2,7 @@ import { NoteInterface } from './NoteInterface';
 import { NoteModel } from './NoteModel';
 
 export interface DeckInterface {
-    __type__: string;
+    __type__: "Deck";
     children: Array<DeckInterface>;
     crowdanki_uuid: string;
     deck_config_uuid: string;
