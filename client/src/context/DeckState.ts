@@ -1,9 +1,10 @@
 import { atom } from "recoil";
+import { DeckInterface } from './../interfaces/DeckInterface';
 
 export const decksState = atom({
   key: "decks",
   // for safety reasons, the state should be set as a templated CrowdAnki JSON for a blank deck
-  default: {
+  default: [{
     __type__: "Deck",
     children: [],
     crowdanki_uuid: "",
@@ -17,5 +18,5 @@ export const decksState = atom({
     name: "Default",
     note_models: [],
     notes: []
-  }
+  }] as DeckInterface[]
 });

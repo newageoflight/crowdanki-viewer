@@ -45,24 +45,24 @@ export const Deck: React.FC<Props> = (props) => {
 
     return (
         <>
-            <ul>
-                <li className="row">
-                    <button className="show-children" onClick={() => {setShowChildren(!showChildren)}}>
-                        {showChildren ? "-" : "+"}
-                    </button>
-                    <div className="deck-details" onClick={updateView}>
-                        <div className="deck-name">
-                            {props.item.name}
-                        </div>
-                        <div className="deck-count">
-                            {everyNotes.length}
-                        </div>
+            <li className="row">
+                <button className="show-children" onClick={() => {setShowChildren(!showChildren)}}>
+                    {showChildren ? "-" : "+"}
+                </button>
+                <div className="deck-details" onClick={updateView}>
+                    <div className="deck-name">
+                        {props.item.name}
                     </div>
-                </li>
-                {showChildren ? props.item.children.map((subdeck) => (
+                    <div className="deck-count">
+                        {everyNotes.length}
+                    </div>
+                </div>
+            </li>
+            {showChildren ? (props.item.children.length > 0 ? props.item.children.map((subdeck) => (
+                <ul>
                     <Deck key={subdeck.crowdanki_uuid} item={subdeck} level={props.level + 1} />
-                )) : ""}
-            </ul>
+                </ul>
+            )) : "") : ""}
         </>
     )
 }

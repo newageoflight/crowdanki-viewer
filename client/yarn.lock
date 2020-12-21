@@ -8257,6 +8257,11 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
+performant-array-to-tree@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/performant-array-to-tree/-/performant-array-to-tree-1.7.1.tgz#15c90257b4c9f07e232ded8dd60252bcfd7a149a"
+  integrity sha512-sSbKHkxbecE5o6GzQqiVi7stMXRZyXubsq9z/WTpf1CPlRfqlxj9k5kUBGlWnvRjmzdnzbsiMak2ysDO66tK5Q==
+
 picomatch@^2.0.4, picomatch@^2.0.5, picomatch@^2.2.1, picomatch@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"

@@ -1,28 +1,38 @@
 import express from "express";
-import { graphqlHTTP } from "express-graphql";
-import cors from "cors";
+// import { ApolloServer, gql } from "apollo-server";
+import dotenv from "dotenv";
 import path from "path";
+import bodyParser from 'body-parser';
+
+import { connectDB } from "./config/db";
+import { router as deckRouter } from "./routes/decks"
+import { router as noteRouter } from "./routes/notes"
 // import http from "http";
 // import { Server as IoServer } from "socket.io";
-import { schema } from "./models/GQSchema"
-import { InitialState } from './data/InitialState';
+// import { schema } from "./models/GQSchema"
+
+// import { GQInitialState } from './data/InitialState';
+
+dotenv.config({ path: "./config/config.env" })
+connectDB();
 
 const app = express();
 const port = process.env.PORT || 4000;
-// const httpServer = new http.Server(app);
-// const io = new IoServer(httpServer);
-// move to mongodb to store decks
-// also should consider finding some way to store images in db but in a way compatible with the current setup
-app.use(cors());
-app.use("/graphql", graphqlHTTP({
-    schema,
-    graphiql: true
-}))
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(express.static(path.join("public", "media")))
 
+
+app.use("/api/v1/decks", deckRouter)
+app.use("/api/v1/notes", noteRouter)
+
+// don't do anything for now, just post the data to our server to see if it works properly
+// ok now that the data's been posted we can start working with MongoDB
+
 app.get("/getdata", (req, res) => {
+    console.log("Retrieving data from server")
     console.log("Sending initial state");
-    res.send(InitialState);
 })
 
 app.get("/getdecks", (req, res) => {

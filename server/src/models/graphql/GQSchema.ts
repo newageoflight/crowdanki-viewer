@@ -1,5 +1,5 @@
 import { GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
-import { GQInitialState } from './../data/InitialState';
+import { GQInitialState } from '../../data/InitialState';
 import { DeckType } from './DeckType';
 
 const RootQuery = new GraphQLObjectType({

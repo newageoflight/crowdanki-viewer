@@ -3,15 +3,16 @@ import { NoteModel } from './NoteModel';
 
 export interface DeckInterface {
     __type__: "Deck";
-    children: Array<DeckInterface>;
+    children: DeckInterface[];
     crowdanki_uuid: string;
     deck_config_uuid: string;
-    deck_configurations: Array<any>;
+    deck_configurations: any[];
     desc: string;
     dyn: number;
     extendNew: number;
     extendRev: number;
+    media_files: string[];
     name: string;
-    note_models: Array<NoteModel>;
-    notes: Array<NoteInterface>;
+    note_models: NoteModel[];
+    notes: NoteInterface[];
 }

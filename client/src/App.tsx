@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import { arrayToTree } from "performant-array-to-tree";
 
 import { Deck } from './components/Deck';
 import { decksState } from './context/DeckState';
 import { NoteList } from './components/NoteList';
+import { DeckInterface } from './interfaces/DeckInterface';
 
 import './css/App.css';
 import logo from './crowdanki.svg';
@@ -25,7 +27,9 @@ function App() {
     async function getData() {
       const getFetch = await fetch("/getdata");
       const getJSON = await getFetch.json();
-      setDecks(getJSON);
+      const stateTree = arrayToTree(getJSON, {id: "crowdanki_uuid", parentId: "parent", dataField: null});
+      console.log("State tree", stateTree)
+      setDecks(stateTree as DeckInterface[]);
     }
     
     getData();
@@ -45,7 +49,9 @@ function App() {
       <div className="container">
         <div className="deck-list">
           <h2>Decks</h2>
-          <Deck key={decks.crowdanki_uuid} item={decks} level={0}/>
+          <ul>
+            {decks.map(deck => <Deck key={deck.crowdanki_uuid} item={deck} level={0}/>)}
+          </ul>
         </div>
         <NoteList/>
       </div>
