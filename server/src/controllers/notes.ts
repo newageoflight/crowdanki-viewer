@@ -8,15 +8,10 @@ import { NoteDBModel } from "../models/mongodb/NoteSchema";
 export const getNotes = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const notes = await NoteDBModel.find()
-        if (!notes) {
-            return res.status(404).json({
-                success: false,
-                error: "No notes found"
-            })
-        }
 
         return res.status(200).json({
             success: true,
+            length: notes.length,
             data: notes
         })
     } catch (error) {
@@ -34,13 +29,6 @@ export const getNotes = async (req: Request, res: Response, next: NextFunction) 
 export const getNotesByDeck = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const notes = await NoteDBModel.find({"deck_uuid": req.params.deck_uuid})
-
-        if (!notes) {
-            return res.status(404).json({
-                success: false,
-                error: "No notes found"
-            })
-        }
 
         return res.status(200).json({
             success: true,
@@ -64,13 +52,6 @@ export const getNotesByTags = async (req: Request, res: Response, next: NextFunc
     try {
         const tags = req.query.tags
         const notes = await NoteDBModel.find({"tags": {"$in": tags}})
-
-        if (!notes) {
-            return res.status(404).json({
-                success: false,
-                error: "No notes found"
-            })
-        }
 
         return res.status(200).json({
             success: true,
@@ -124,7 +105,7 @@ export const deleteNote = async (req: Request, res: Response, next: NextFunction
     try {
         await NoteDBModel.findOneAndDelete({"guid": req.params.guid}, {}, (err, docs) => {
             if (err) {
-                return res.status(500).json({
+                return res.status(404).json({
                     success: false,
                     error: err.message
                 })

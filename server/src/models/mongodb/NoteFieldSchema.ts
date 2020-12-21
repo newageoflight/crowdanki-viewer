@@ -1,11 +1,11 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 export const NoteFieldSchema = new mongoose.Schema({
-    font: {type: String},
-    media: {type: mongoose.Schema.Types.Mixed},
-    name: {type: String},
-    ord: {type: Number},
-    rtl: {type: Boolean},
-    size: {type: Number},
-    sticky: {type: Boolean},
+    font: String,
+    media: Schema.Types.Mixed,
+    name: String,
+    ord: Number,
+    rtl: Boolean,
+    size: Number,
+    sticky: Boolean,
 })

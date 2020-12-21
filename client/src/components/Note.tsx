@@ -16,6 +16,7 @@ interface Props {
 }
 
 // TODO: consider creating a function to preprocess the HTML so that the image sources are redirected to public/deck/media
+// TODO: add a bit showing what deck the note belongs to that can be changed
 
 export const Note: React.FC<Props> = ({note, model}) => {
     // for some reason, using the key (which is equal to the note guid) causes it to crash

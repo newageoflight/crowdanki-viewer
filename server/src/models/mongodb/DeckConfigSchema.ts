@@ -2,50 +2,50 @@ import mongoose from "mongoose";
 
 export const LapseSchema = new mongoose.Schema({
     // floats
-    delays: {type: [Number]},
-    leechAction: {type: Number},
-    leechFails: {type: Number},
-    minInt: {type: Number},
+    delays: [Number],
+    leechAction: Number,
+    leechFails: Number,
+    minInt: Number,
     // interval multiplier i.e. float
-    mult: {type: Number}
+    mult: Number
 })
 
 
 export const NewCardConfigSchema = new mongoose.Schema({
-    bury: {type: Boolean},
+    bury: Boolean,
     // delays are floats
-    delays: {type: Number},
-    initialFactor: {type: Number},
-    ints: {type: Number},
-    order: {type: Number},
-    perDay: {type: Number},
-    separate: {type: Boolean},
+    delays: Number,
+    initialFactor: Number,
+    ints: Number,
+    order: Number,
+    perDay: Number,
+    separate: Boolean,
 })
 
 export const ReviewCardConfigSchema = new mongoose.Schema({
-    bury: {type: Boolean},
+    bury: Boolean,
     // easy ease factor, which is a float
-    ease4: {type: Number},
-    fuzz: {type: Number},
-    hardFactor: {type: Number},
-    ivlFct: {type: Number},
+    ease4: Number,
+    fuzz: Number,
+    hardFactor: Number,
+    ivlFct: Number,
     // everything above is a float, everything below is an int
-    maxIvl: {type: Number},
-    minSpace: {type: Number},
-    perDay: {type: Number},
+    maxIvl: Number,
+    minSpace: Number,
+    perDay: Number,
 })
 
 export const DeckConfigSchema = new mongoose.Schema({
-    __type__: {type: String},
-    autoplay: {type: Boolean},
-    crowdanki_uuid: {type: String},
-    dyn: {type: Boolean},
-    lapse: {type: LapseSchema},
-    maxTaken: {type: Number},
-    name: {type: String},
-    new: {type: NewCardConfigSchema},
-    replayq: {type: Boolean},
-    rev: {type: ReviewCardConfigSchema},
-    timer: {type: Number},
+    __type__: String,
+    autoplay: Boolean,
+    crowdanki_uuid: String,
+    dyn: Boolean,
+    lapse: LapseSchema,
+    maxTaken: Number,
+    name: String,
+    new: NewCardConfigSchema,
+    replayq: Boolean,
+    rev: ReviewCardConfigSchema,
+    timer: Number,
 })
 

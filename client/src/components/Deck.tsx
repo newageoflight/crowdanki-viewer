@@ -5,6 +5,7 @@ import { DeckInterface } from '../interfaces/DeckInterface';
 import { noteModelsState } from './../context/NoteModelsState';
 import { uniq } from "../utils/utils";
 import { NoteInterface } from '../interfaces/NoteInterface';
+import { noteViewLoadingState } from './../context/NoteViewLoadingState';
 
 interface Props {
     key: string;
@@ -16,6 +17,7 @@ export const Deck: React.FC<Props> = (props) => {
     const [showChildren, setShowChildren] = useState(false);
     const setNoteView = useSetRecoilState(noteViewState);
     const setNoteModels = useSetRecoilState(noteModelsState);
+    const setNotesLoading = useSetRecoilState(noteViewLoadingState);
 
     useEffect(() => {
         setNoteModels((oldModels) => props.item.note_models === undefined ? oldModels : uniq(oldModels.concat(props.item.note_models)))
@@ -25,22 +27,32 @@ export const Deck: React.FC<Props> = (props) => {
     const recurseNotes = () => {
         // dfs through the deck tree
         // add notes of all children to the allNotes array and return
-        let allNotes = new Array<NoteInterface>();
+        let allNotesLength = 0;
+        let allDecks = new Array<string>();
         let deckStack = new Array<DeckInterface>();
         deckStack.push(props.item)
         while (deckStack.length > 0) {
             let currentDeck = deckStack.pop() as DeckInterface;
-            allNotes = allNotes.concat(currentDeck.notes);
+            allDecks.push(currentDeck.crowdanki_uuid);
+            allNotesLength += currentDeck.notes.length;
             deckStack = deckStack.concat(currentDeck.children);
         }
-        return allNotes;
+        return {allDecks, allNotesLength};
     }
-    const everyNotes = recurseNotes();
+    const {allDecks: everyDecks, allNotesLength: everyNotesLength} = recurseNotes();
 
-    const updateView = () => {
-        setNoteView((oldView) => [
-            ...everyNotes
-        ]);
+    const updateView = async () => {
+        // loop through all children first
+        // basically bring the parent and all its children's uuids together to make a few requests to the server
+        setNotesLoading(true);
+        let notesToSet = new Array<NoteInterface>();
+        for (let deck_id of everyDecks) {
+            let noteRequest = await fetch(`/api/v1/notes/deck/${deck_id}`)
+            let { data: noteJSON } = await noteRequest.json()
+            notesToSet = notesToSet.concat(noteJSON);
+        }
+        setNoteView(notesToSet);
+        setNotesLoading(false)
     }
 
     return (
@@ -54,7 +66,7 @@ export const Deck: React.FC<Props> = (props) => {
                         {props.item.name}
                     </div>
                     <div className="deck-count">
-                        {everyNotes.length}
+                        {everyNotesLength}
                     </div>
                 </div>
             </li>

@@ -7,7 +7,7 @@ import { DeckModel } from "../models/mongodb/DeckSchema"
 
 export const getDecks = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const decks = await DeckModel.find();
+        const decks = await DeckModel.find({});
 
         return res.status(200).json({
             success: true,

@@ -1,4 +1,3 @@
-import { NoteInterface } from './NoteInterface';
 import { NoteModel } from './NoteModel';
 
 export interface DeckInterface {
@@ -14,5 +13,5 @@ export interface DeckInterface {
     media_files: string[];
     name: string;
     note_models: NoteModel[];
-    notes: NoteInterface[];
+    notes: string[];
 }

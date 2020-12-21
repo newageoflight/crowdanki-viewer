@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { arrayToTree } from "performant-array-to-tree";
 
 import { Deck } from './components/Deck';
@@ -9,6 +9,9 @@ import { DeckInterface } from './interfaces/DeckInterface';
 
 import './css/App.css';
 import logo from './crowdanki.svg';
+import { tagsState } from './context/TagsState';
+import { TagList } from './components/TagList';
+import { uniq } from './utils/utils';
 
 // to prevent VSCode from glitching out about the TSConfig:
 // https://stackoverflow.com/a/64969461/5403467
@@ -21,15 +24,20 @@ import logo from './crowdanki.svg';
 
 function App() {
   const [decks, setDecks] = useRecoilState(decksState);
+  const setTags = useSetRecoilState(tagsState);
 
   useEffect(() => {
     // if you don't do it this way typescript will throw a fit
     async function getData() {
-      const getFetch = await fetch("/getdata");
-      const getJSON = await getFetch.json();
+      const getFetch = await fetch("/api/v1/decks");
+      const { data: getJSON } = await getFetch.json();
       const stateTree = arrayToTree(getJSON, {id: "crowdanki_uuid", parentId: "parent", dataField: null});
       console.log("State tree", stateTree)
       setDecks(stateTree as DeckInterface[]);
+
+      const fetchTags = await fetch("/api/v1/tags");
+      const { data: getTags } = await fetchTags.json();
+      setTags(uniq(getTags.map(({tags}) => tags).reduce((a, b) => a.concat(b))));
     }
     
     getData();
@@ -47,11 +55,14 @@ function App() {
         </div>
       </div>
       <div className="container">
-        <div className="deck-list">
-          <h2>Decks</h2>
-          <ul>
-            {decks.map(deck => <Deck key={deck.crowdanki_uuid} item={deck} level={0}/>)}
-          </ul>
+        <div className="left-bar">
+          <div className="deck-list">
+            <h2>Decks</h2>
+            <ul>
+              {decks.map(deck => <Deck key={deck.crowdanki_uuid} item={deck} level={0}/>)}
+            </ul>
+          </div>
+          <TagList />
         </div>
         <NoteList/>
       </div>
