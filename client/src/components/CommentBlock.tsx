@@ -1,4 +1,6 @@
 import React from 'react'
+import SimpleMDE from "react-simplemde-editor"
+import "easymde/dist/easymde.min.css"
 
 interface Props {
 
@@ -6,8 +8,8 @@ interface Props {
 
 export const CommentBlock: React.FC<Props> = () => {
     return (
-        <div>
-            
+        <div className="note-row">
+            <SimpleMDE />
         </div>
     )
 }
