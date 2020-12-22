@@ -1,10 +1,11 @@
+import dotenv from "dotenv";
 import mongoose from "mongoose";
 
 export const connectDB = async () => {
     try {
-        const conn = await mongoose.connect("mongodb+srv://cluster0.sbkeb.mongodb.net/crowdankiweb?retryWrites=true&w=majority", {
-            user: "therealchrissoc",
-            pass: "wzQSVCO0bP9rkIie",
+        const conn = await mongoose.connect(process.env.MONGO_URI!, {
+            user: process.env.USERNAME,
+            pass: process.env.PASSWORD,
             useNewUrlParser: true,
             useCreateIndex: true,
             useUnifiedTopology: true
