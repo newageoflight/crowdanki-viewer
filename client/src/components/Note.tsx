@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import ContentEditable from 'react-contenteditable';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import diff_match_patch from "diff-match-patch";
 
+import { socket } from "../connections/Socket"
 import { NoteInterface } from '../interfaces/NoteInterface';
 import { NoteModel } from './../interfaces/NoteModel';
 import { CardCarousel } from './CardCarousel';
@@ -23,6 +25,7 @@ interface Props {
 
 export const Note: React.FC<Props> = ({note, model}) => {
     // for some reason, using the key (which is equal to the note guid) causes it to crash
+    const dmp = new diff_match_patch();
     const [noteModel, setNoteModel] = useState(model);
     const [noteState, setNoteState] = useRecoilState(noteStateFamily(note.guid));
     const [noteListState, setNoteListState] = useRecoilState(noteViewState);
@@ -39,21 +42,33 @@ export const Note: React.FC<Props> = ({note, model}) => {
         newFields[idx] = evt.currentTarget.innerHTML;
         newState.fields = newFields;
         // also use mitt to emit an event to the socket connection
+        console.log(`Field number ${idx} on note ${noteState.guid} changed`)
+        // we can actually also just calculate a diff and send that to the server
+        let changeDiff = dmp.diff_main(noteState.fields[idx], newState.fields[idx]);
+        // console.log(changeDiff);
+        socket.emit("noteChange/field", {guid: noteState.guid, field: idx, change: changeDiff})
         setNoteState(newState);
     }
 
     const handleTagChange = (evt) => {
         let newState = {...noteState};
         // the filter bit is just to remove empty strings/elements
+        let oldTags = newState.tags.join(" ");
         newState.tags = evt.currentTarget.textContent.split(" ").filter(e => e);
+        let tagDiff = dmp.diff_main(oldTags, evt.currentTarget.textContent)
         // also use mitt to emit an event to the socket connection
+        console.log(`Tags changed on note ${noteState.guid} to ${newState.tags}`)
+        socket.emit("noteChange/tags", {guid: noteState.guid, change: tagDiff})
         setNoteState(newState);
     }
 
     const deleteNote = (evt) => {
-        let newListState = noteListState.filter(n => n.guid !== note.guid);
-        if (window.confirm("Are you sure you want to delete this note?"))
+        let newListState = noteListState.filter(n => n.guid !== noteState.guid);
+        if (window.confirm("Are you sure you want to delete this note?")) {
+            console.log(`Note ${noteState.guid} deleted`)
+            socket.emit("noteChange/delete", {guid: noteState.guid})
             setNoteListState(newListState);
+        }
         // also use mitt to emit an event to the socket connection
     }
 
@@ -68,8 +83,10 @@ export const Note: React.FC<Props> = ({note, model}) => {
                     // first determine what the next cloze number should be based on the contents of the current field
                     let target = evt.target || evt.srcElement;
                     let text = target.textContent || target.innerText;
-                    let clozeMatch = text.match(/{{c(\d+)::/g);
-                    let clozeNumber = parseInt(clozeMatch[1]) + 1;
+                    let clozeMatch = text.matchAll(/{{c(\d+)::/g);
+                    let clozeNumbers = [...clozeMatch].map((arr) => parseInt(arr[1]))
+                    console.log(clozeNumbers)
+                    let clozeNumber = Math.max(...clozeNumbers) + 1;
                     // if a selection is active, wrap the selection in cloze brackets
                     let sel = window.getSelection();
                     console.log(sel)
@@ -141,6 +158,7 @@ export const Note: React.FC<Props> = ({note, model}) => {
                         <div className="tag-label">
                             Tags
                         </div>
+                        {/* this should be a textarea and not a contenteditable since it's plain text only */}
                         <ContentEditable onChange={handleTagChange} html={noteState.tags.join(" ")} className="tag-content" />
                     </div>
                     <br/>

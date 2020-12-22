@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
 
+import { socket } from "../connections/Socket"
 import { noteViewState } from './../context/NoteViewState';
 import { createNote } from './../interfaces/NoteInterface';
 import { noteModelsState } from './../context/NoteModelsState';
@@ -22,7 +23,8 @@ export const NoteInserter: React.FC<{position: number, useModel: string}> = ({po
         newNote.deck_uuid = noteListState[position].deck_uuid;
         newNote.fields = new Array<string>(correspondingModel.flds.length).fill("");
         newNote.guid = nanoid(10); 
-        console.log(newNote, position)
+        socket.emit("addNote", {guid: newNote.guid});
+        console.log(`New note with guid ${newNote.guid} added`)
 
         newListState.splice(position, 0, newNote);
         setNoteListState(newListState);

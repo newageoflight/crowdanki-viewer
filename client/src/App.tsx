@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { arrayToTree } from "performant-array-to-tree";
 
+import './css/App.css';
+import logo from './crowdanki.svg';
+
+import { socket } from './connections/Socket';
 import { decksState } from './context/DeckState';
 import { DeckList } from './components/DeckList';
 import { NoteList } from './components/NoteList';
 import { DeckInterface, FlatDeckInterface } from './interfaces/DeckInterface';
-
-import './css/App.css';
-import logo from './crowdanki.svg';
 import { tagsState } from './context/TagsState';
 import { TagList } from './components/TagList';
 import { uniq } from './utils/utils';
@@ -30,6 +31,11 @@ function App() {
   const setDeckMap = useSetRecoilState(deckMapState);
   const setTags = useSetRecoilState(tagsState);
 
+  // listen to socket changes at the app level
+  socket.on("*", (event, data) => {
+    console.log(event, data)
+  })
+
   useEffect(() => {
     // if you don't do it this way typescript will throw a fit
     async function getData() {
@@ -47,7 +53,6 @@ function App() {
       const uniqueTags = uniq(getTags.map(({tags}) => tags).reduce((a, b) => a.concat(b)));
       // then convert them into a tree structure for efficiency's sake
       let analysedTags = analyseAnkiTags(uniqueTags as string[]);
-      console.log(analysedTags);
       setTags(analysedTags);
     }
     

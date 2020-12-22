@@ -2,7 +2,6 @@ import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
-
 import { NoteInterface } from './../interfaces/NoteInterface';
 import { NoteModel } from './../interfaces/NoteModel';
 // import { RenderAnkiTemplate } from './AnkiTemplate';
