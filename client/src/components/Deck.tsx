@@ -58,7 +58,7 @@ export const Deck: React.FC<Props> = (props) => {
     return (
         <>
             <li className="row">
-                <button className="show-children" onClick={() => {setShowChildren(!showChildren)}}>
+                <button className="show-children" onClick={() => setShowChildren(!showChildren)}>
                     {showChildren ? "-" : "+"}
                 </button>
                 <div className="deck-details" onClick={updateView}>

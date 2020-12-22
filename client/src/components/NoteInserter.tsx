@@ -19,6 +19,7 @@ export const NoteInserter: React.FC<{position: number, useModel: string}> = ({po
         let newNote = createNote({__type__: "Note", note_model_uuid: modelSelected});
         // populate the fields array of the new note with blank fields
         let correspondingModel = noteModels.find(m => m.crowdanki_uuid === modelSelected) as NoteModel;
+        newNote.deck_uuid = noteListState[position].deck_uuid;
         newNote.fields = new Array<string>(correspondingModel.flds.length).fill("");
         newNote.guid = nanoid(10); 
         console.log(newNote, position)
@@ -32,8 +33,8 @@ export const NoteInserter: React.FC<{position: number, useModel: string}> = ({po
             <button className="add-note" onClick={addNote}><FontAwesomeIcon icon={faPlus}/> Add note</button>
             <ul className="dropdown-content">
                 {
-                    noteModels.map(m => (
-                        <li onClick={evt => {
+                    noteModels.map((m, idx) => (
+                        <li key={idx} onClick={evt => {
                             setModelSelected(m.crowdanki_uuid);
                             addNote(evt);
                         }}>{m.name}</li>

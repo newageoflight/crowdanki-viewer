@@ -1,6 +1,6 @@
 import express from "express";
 // import { ApolloServer, gql } from "apollo-server";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import morgan from "morgan";
 import path from "path";
 
@@ -14,7 +14,7 @@ import { router as tagRouter } from "./routes/tags"
 
 // import { GQInitialState } from './data/InitialState';
 
-dotenv.config({ path: "./config/config.env" })
+dotenv.config({ debug: true })
 connectDB();
 
 const app = express();
@@ -26,18 +26,10 @@ app.use(express.static(path.join("public", "media")))
 app.use("/api/v1/decks", deckRouter)
 app.use("/api/v1/notes", noteRouter)
 app.use("/api/v1/tags", tagRouter)
+// TODO: add a route for user authentication/registration with passport.js
 
 // don't do anything for now, just post the data to our server to see if it works properly
 // ok now that the data's been posted we can start working with MongoDB
-
-app.get("/getdata", (req, res) => {
-    console.log("Retrieving data from server")
-    console.log("Sending initial state");
-})
-
-app.get("/getdecks", (req, res) => {
-    console.log("Sending deck list only")
-})
 
 // Socket connection should note:
 // - Who connected?

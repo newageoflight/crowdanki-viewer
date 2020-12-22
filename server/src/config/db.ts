@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 export const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI!, {
-            user: process.env.USERNAME,
-            pass: process.env.PASSWORD,
+            user: process.env.MONGO_USERNAME,
+            pass: process.env.MONGO_PASSWORD,
             useNewUrlParser: true,
             useCreateIndex: true,
             useUnifiedTopology: true
