@@ -4,6 +4,7 @@ export interface NoteInterface {
     guid: string;
     note_model_uuid: string;
     tags: Array<string>;
+    deck_uuid: string;
 }
 
 export const createEmptyNote = (): NoteInterface => ({
@@ -11,7 +12,8 @@ export const createEmptyNote = (): NoteInterface => ({
     fields: Array<string>(),
     guid: '',
     note_model_uuid: '',
-    tags: Array<string>()
+    tags: Array<string>(),
+    deck_uuid: ""
 })
 
 export const createNote = <T extends Partial<NoteInterface>>(initialValues: T): NoteInterface & T => {

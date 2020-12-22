@@ -1,0 +1,46 @@
+.deck-list {
+  flex-basis: 20rem;
+
+  ul {
+    list-style-type: none;
+    padding-left: 1rem;
+
+    li {
+      display: flex;
+      align-items: center;
+
+      .deck-details {
+        display: inline-flex;
+        justify-content: space-between;
+        padding: 0.3rem;
+        flex: 19;
+
+        &:hover {
+          background-color: #ddd;
+          text-decoration: underline;
+          transition: 0.3s;
+        }
+
+        &:active, &:focus {
+          background-color: #999;
+          text-decoration: underline;
+        }
+      }
+
+      button.show-children {
+        flex: 1;
+        height: 25px;
+        width: 25px;
+
+        &:hover {
+          background: #ddd;
+        }
+
+        &:active {
+          background: #999;
+        }
+      }
+
+    }
+  }
+}

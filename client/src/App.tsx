@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { arrayToTree } from "performant-array-to-tree";
 
-import { Deck } from './components/Deck';
 import { decksState } from './context/DeckState';
+import { DeckList } from './components/DeckList';
 import { NoteList } from './components/NoteList';
-import { DeckInterface } from './interfaces/DeckInterface';
+import { DeckInterface, FlatDeckInterface } from './interfaces/DeckInterface';
 
 import './css/App.css';
 import logo from './crowdanki.svg';
 import { tagsState } from './context/TagsState';
 import { TagList } from './components/TagList';
 import { uniq } from './utils/utils';
+import { deckMapState } from './context/DeckMapState';
+import { analyseAnkiTags } from './utils/AnalyseTags';
+import { flattenDecks } from './utils/FlattenDecks';
 
 // to prevent VSCode from glitching out about the TSConfig:
 // https://stackoverflow.com/a/64969461/5403467
@@ -23,21 +26,29 @@ import { uniq } from './utils/utils';
 // TODO: add filter views for tags
 
 function App() {
-  const [decks, setDecks] = useRecoilState(decksState);
+  const setDecks = useSetRecoilState(decksState);
+  const setDeckMap = useSetRecoilState(deckMapState);
   const setTags = useSetRecoilState(tagsState);
 
   useEffect(() => {
     // if you don't do it this way typescript will throw a fit
     async function getData() {
+      // build up the deck tree first
       const getFetch = await fetch("/api/v1/decks");
       const { data: getJSON } = await getFetch.json();
-      const stateTree = arrayToTree(getJSON, {id: "crowdanki_uuid", parentId: "parent", dataField: null});
-      console.log("State tree", stateTree)
-      setDecks(stateTree as DeckInterface[]);
+      const stateTree = arrayToTree(getJSON, {id: "crowdanki_uuid", parentId: "parent", dataField: null}) as DeckInterface[];
+      setDecks(stateTree);
+      setDeckMap(flattenDecks(stateTree) as FlatDeckInterface[]);
 
+      // build up the tag tree
       const fetchTags = await fetch("/api/v1/tags");
       const { data: getTags } = await fetchTags.json();
-      setTags(uniq(getTags.map(({tags}) => tags).reduce((a, b) => a.concat(b))));
+      // now we need to uniq the tags
+      const uniqueTags = uniq(getTags.map(({tags}) => tags).reduce((a, b) => a.concat(b)));
+      // then convert them into a tree structure for efficiency's sake
+      let analysedTags = analyseAnkiTags(uniqueTags as string[]);
+      console.log(analysedTags);
+      setTags(analysedTags);
     }
     
     getData();
@@ -56,12 +67,7 @@ function App() {
       </div>
       <div className="container">
         <div className="left-bar">
-          <div className="deck-list">
-            <h2>Decks</h2>
-            <ul>
-              {decks.map(deck => <Deck key={deck.crowdanki_uuid} item={deck} level={0}/>)}
-            </ul>
-          </div>
+          <DeckList />
           <TagList />
         </div>
         <NoteList/>

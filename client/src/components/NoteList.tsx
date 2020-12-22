@@ -15,7 +15,7 @@ export const NoteList = () => {
     const notesLoading = useRecoilValue(noteViewLoadingState);
 
     return (
-        <div className="note-container">
+        <div className="notes-container">
             <h2>Notes</h2>
             {notesLoading ? (<p>Loading...</p>) :
                 notes.length > 0 ? notes.map((note, idx) => (

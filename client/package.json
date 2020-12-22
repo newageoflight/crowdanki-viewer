@@ -20,6 +20,7 @@
     "bootstrap": "^4.5.3",
     "flat-carousel": "^0.0.1",
     "jquery": "^3.5.1",
+    "mitt": "^2.1.0",
     "mustache": "^4.0.1",
     "nanoid": "^3.1.18",
     "nuka-carousel": "^4.7.3",

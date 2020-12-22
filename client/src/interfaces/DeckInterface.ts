@@ -15,3 +15,20 @@ export interface DeckInterface {
     note_models: NoteModel[];
     notes: string[];
 }
+
+export interface FlatDeckInterface {
+    __type__: "Deck";
+    children: string[];
+    parent: string;
+    crowdanki_uuid: string;
+    deck_config_uuid: string;
+    deck_configurations: any[];
+    desc: string;
+    dyn: number;
+    extendNew: number;
+    extendRev: number;
+    media_files: string[];
+    name: string;
+    note_models: NoteModel[];
+    notes: string[];
+}

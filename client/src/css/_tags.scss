@@ -1,0 +1,25 @@
+.tag-list {
+  flex-basis: 20rem;
+
+  ul {
+    list-style-type: none;
+    padding-left: 1rem;
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 0.3rem;
+
+      &:hover {
+        background-color: #ddd;
+        text-decoration: underline;
+        transition: 0.3s;
+      }
+
+      &:active, &:focus {
+        background-color: #999;
+        text-decoration: underline;
+      }
+    }
+  }
+}
