@@ -17,14 +17,17 @@ import { deckMapState } from './context/DeckMapState';
 import { analyseAnkiTags } from './utils/AnalyseTags';
 import { flattenDecks } from './utils/FlattenDecks';
 
-// to prevent VSCode from glitching out about the TSConfig:
-// https://stackoverflow.com/a/64969461/5403467
-
 // later planning to add Anki save and export support with mkanki:
 // https://github.com/nornagon/mkanki
 
-// TODO: somehow tie this into a MERN project
-// TODO: add filter views for tags
+// should ideally also support ordering of cards
+// i think anki just shows cards in whatever order they were added into the sql db
+// so this can be approximated just by having an "order in deck" field on the notes
+// obviously some conversion will need to be done prior to making an exportable deck
+
+// not urgent but on the roadmap:
+// - image occlusion support
+// - cloze overlapper support
 
 function App() {
   const setDecks = useSetRecoilState(decksState);

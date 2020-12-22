@@ -9,6 +9,7 @@ export interface AnkiNoteInterface {
 export interface NoteInterface extends Omit<AnkiNoteInterface, "__type__"> {
     __type__: "Note" | "CommentBlock";
     deck_uuid: string;
+    order?: number;
 }
 
 export const createEmptyNote = (): NoteInterface => ({
@@ -17,7 +18,7 @@ export const createEmptyNote = (): NoteInterface => ({
     guid: '',
     note_model_uuid: '',
     tags: Array<string>(),
-    deck_uuid: ""
+    deck_uuid: "",
 })
 
 export const createNote = <T extends Partial<NoteInterface>>(initialValues: T): NoteInterface & T => {

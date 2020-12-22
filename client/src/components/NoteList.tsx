@@ -14,6 +14,10 @@ export const NoteList = () => {
     const noteModels = useRecoilValue(noteModelsState);
     const notesLoading = useRecoilValue(noteViewLoadingState);
 
+    // The note list renderer should also add the ability to display comment blocks
+    // These will just be notes with 1 field called "comment"
+    // and it will also have a dummy model that only exists within this app (to fit the JSON constraints)
+    // it will not be exported to Anki, it just shows up here as a place to have discussions, etc.
     return (
         <div className="notes-container">
             <h2>Notes</h2>
