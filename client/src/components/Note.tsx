@@ -127,14 +127,14 @@ export const Note: React.FC<Props> = ({note, model}) => {
                 <br/>
                 <div className="col note-fields">
                     {// edit fields in the left column
-                    noteState.fields.map((field, idx) => (
+                    noteModel.flds.map((field, idx) => (
                         <div className="field">
                             <div className="field-label">
-                                {noteModel.flds[idx].name}
+                                {field.name}
                             </div>
                             <ContentEditable key={idx} onChange={e => handleFieldChange(idx, e)}
                                 onKeyDown={handleKeyEvents}
-                                html={field} className="field-content" />
+                                html={noteState.fields[idx] || ""} className="field-content" />
                         </div>
                     ))}
                     <div className="tags">
