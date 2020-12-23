@@ -24,7 +24,6 @@ interface Props {
 // TODO: add a bit showing what deck the note belongs to that can be changed
 
 export const Note: React.FC<Props> = ({note, model}) => {
-    // for some reason, using the key (which is equal to the note guid) causes it to crash
     const dmp = new diff_match_patch();
     const [noteModel, setNoteModel] = useState(model);
     const [noteState, setNoteState] = useRecoilState(noteStateFamily(note.guid));
@@ -34,7 +33,6 @@ export const Note: React.FC<Props> = ({note, model}) => {
     const [showCardTypeMenu, setShowCardTypeMenu] = useState(false);
     const [showDecksMenu, setShowDecksMenu] = useState(false);
 
-    // TODO: add onChange hooks for the contentEditable divs so that the changes are propagated back to the app state
     const handleFieldChange = (idx, evt) => {
         let newState = {...noteState};
         // you can't assign arrays directly in strict mode
@@ -101,6 +99,7 @@ export const Note: React.FC<Props> = ({note, model}) => {
         }
     }
 
+    // TODO: refactor the dropdown menus as portal elements rather than fixed
     return (
         <div className="note-row">
             <div className="row note-info">

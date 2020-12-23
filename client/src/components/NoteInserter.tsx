@@ -45,6 +45,7 @@ export const NoteInserter: React.FC<{position: number, useModel: string}> = ({po
     //     setNoteListState(newListState);
     // } 
 
+    // TODO: refactor the dropdown menus as portal elements rather than fixed
     return (
         <div className="note-inserter">
             <button className="add-note" onClick={addNote}><FontAwesomeIcon icon={faPlus}/> Add note</button>
